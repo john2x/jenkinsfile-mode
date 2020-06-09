@@ -66,4 +66,5 @@
   (setq font-lock-defaults '(jenkinsfile-mode-font-lock-defaults)))
 
 (provide 'jenkinsfile-mode)
+(add-to-list 'auto-mode-alist '("jenkinsfile\\'" . jenkinsfile-mode))
 ;;; jenkinsfile-mode.el ends here
