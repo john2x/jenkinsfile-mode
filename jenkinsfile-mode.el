@@ -61,7 +61,8 @@
 (setq jenkinsfile-mode-font-lock-defaults
       (append groovy-font-lock-keywords jenkinsfile-mode-font-lock-keywords))
 
-(define-derived-mode jenkinsfile-mode groovy-mode "jenkinsfile-mode"
+;;;###autoload
+(define-derived-mode jenkinsfile-mode groovy-mode "Jenkinsfile"
   "Major mode for editing Jenkins declarative pipeline files."
   (setq font-lock-defaults '(jenkinsfile-mode-font-lock-defaults)))
 
