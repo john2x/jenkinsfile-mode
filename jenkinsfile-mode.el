@@ -26,37 +26,206 @@
 
 (require 'groovy-mode)
 
+(defcustom jenkinsfile-mode-vim-source-url
+  "https://raw.githubusercontent.com/martinda/Jenkinsfile-vim-syntax/master/syntax/Jenkinsfile.vim"
+  "URL to Jenkinsfile.vim source file."
+  :group 'jenkinsfile-mode)
+
+(setq jenkinsfile-mode--file-section-keywords '("pipeline" "agent" "stages" "steps" "post"))
+
+(setq jenkinsfile-mode--directive-keywords '("environment" "options"
+"parameters" "triggers" "stage" "tools" "input" "when" "libraries"))
+
+(setq jenkinsfile-mode--option-keywords '("contained" "buildDiscarder"
+"disableConcurrentBuilds" "overrideIndexTriggers"
+"skipDefaultCheckout" "nextgroup=jenkinsfileOptionParams" "contained"
+"skipStagesAfterUnstable" "checkoutToSubdirectory" "timeout" "retry"
+"timestamps" "nextgroup=jenkinsfileOptionParams"))
+
+(setq jenkinsfile-mode--core-step-keywords '("checkout" "docker"
+"dockerfile" "skipwhite" "nextgroup=jenkinsFileDockerConfigBlock"
+"node" "scm" "sh" "stage" "parallel" "steps" "step" "tool" "always"
+"changed" "failure" "success" "unstable" "aborted" "unsuccessful"
+"regression" "fixed" "cleanup"))
+
+(setq jenkinsfile-mode--pipeline-step-keywords '("Applitools"
+"ArtifactoryGradleBuild" "Consul" "MavenDescriptorStep" "OneSky"
+"VersionNumber" "ViolationsToBitbucketServer" "ViolationsToGitHub"
+"ViolationsToGitLab" "_OcAction" "_OcContextInit" "_OcWatch"
+"acceptGitLabMR" "acsDeploy" "activateDTConfiguration" "addBadge"
+"addErrorBadge" "addGitLabMRComment" "addInfoBadge"
+"addInteractivePromotion" "addShortText" "addWarningBadge" "allure"
+"anchore" "androidApkMove" "androidApkUpload" "androidLint"
+"ansiColor" "ansiblePlaybook" "ansibleTower" "ansibleVault"
+"appMonBuildEnvironment" "appMonPublishTestResults"
+"appMonRegisterTestRun" "applatix" "approveReceivedEvent"
+"approveRequestedEvent" "aqua" "archive" "archiveArtifacts"
+"arestocats" "artifactResolver" "artifactoryDistributeBuild"
+"artifactoryDownload" "artifactoryMavenBuild"
+"artifactoryPromoteBuild" "artifactoryUpload" "awaitDeployment"
+"awaitDeploymentCompletion" "awsCodeBuild" "awsIdentity" "azureCLI"
+"azureDownload" "azureFunctionAppPublish" "azureUpload"
+"azureVMSSUpdate" "azureVMSSUpdateInstances" "azureWebAppPublish"
+"backlogPullRequest" "bat" "bearychatSend" "benchmark"
+"bitbucketStatusNotify" "blazeMeterTest" "build" "buildBamboo"
+"buildImage" "bzt" "cache" "catchError" "cbt" "cbtScreenshotsTest"
+"cbtSeleniumTest" "cfInvalidate" "cfnCreateChangeSet" "cfnDelete"
+"cfnDeleteStackSet" "cfnDescribe" "cfnExecuteChangeSet" "cfnExports"
+"cfnUpdate" "cfnUpdateStackSet" "cfnValidate" "changeAsmVer"
+"checkstyle" "chefSinatraStep" "cifsPublisher" "cleanWs" "cleanup"
+"cloudshareDockerMachine" "cm" "cmake" "cmakeBuild" "cobertura"
+"codefreshLaunch" "codefreshRun" "codescene" "codesonar" "collectEnv"
+"conanAddRemote" "conanAddUser" "configFileProvider" "container"
+"containerLog" "contrastAgent" "contrastVerification" "copy"
+"copyArtifacts" "coverityResults" "cpack" "createDeploymentEvent"
+"createEnvironment" "createEvent" "createMemoryDump" "createSummary"
+"createThreadDump" "crxBuild" "crxDeploy" "crxDownload" "crxReplicate"
+"crxValidate" "ctest" "ctmInitiatePipeline" "ctmPostPiData"
+"ctmSetPiData" "cucumber" "cucumberSlackSend" "currentNamespace"
+"debianPbuilder" "deleteDir" "dependencyCheckAnalyzer"
+"dependencyCheckPublisher" "dependencyCheckUpdateOnly"
+"dependencyTrackPublisher" "deployAPI" "deployArtifacts"
+"deployLambda" "dingding" "dir" "disk" "dockerFingerprintFrom"
+"dockerFingerprintRun" "dockerNode" "dockerPullStep" "dockerPushStep"
+"dockerPushWithProxyStep" "doktor" "downloadProgetPackage"
+"downstreamPublisher" "dropbox" "dry" "ec2" "ec2ShareAmi" "echo"
+"ecrLogin" "emailext" "emailextrecipients" "envVarsForTool" "error"
+"evaluateGate" "eventSourceLambda" "executeCerberusCampaign"
+"exportPackages" "exportProjects" "exws" "exwsAllocate" "figlet"
+"fileExists" "fileOperations" "findFiles" "findbugs" "fingerprint"
+"flywayrunner" "ftp" "ftpPublisher" "gatlingArchive"
+"getArtifactoryServer" "getContext" "getLastChangesPublisher" "git"
+"gitbisect" "githubNotify" "gitlabBuilds" "gitlabCommitStatus"
+"googleCloudBuild" "googleStorageDownload" "googleStorageUpload"
+"gprbuild" "greet" "hipchatSend" "http" "httpRequest" "hub_detect"
+"hub_scan" "hub_scan_failure" "hubotApprove" "hubotSend"
+"importPackages" "importProjects" "inNamespace" "inSession"
+"initConanClient" "input" "invokeLambda" "isUnix" "ispwOperation"
+"ispwRegisterWebhook" "ispwWaitForWebhook" "jacoco" "jdbc"
+"jiraAddComment" "jiraAddWatcher" "jiraAssignIssue"
+"jiraAssignableUserSearch" "jiraComment" "jiraDeleteAttachment"
+"jiraDeleteIssueLink" "jiraDeleteIssueRemoteLink"
+"jiraDeleteIssueRemoteLinks" "jiraDownloadAttachment"
+"jiraEditComment" "jiraEditComponent" "jiraEditIssue"
+"jiraEditVersion" "jiraGetAttachmentInfo" "jiraGetComment"
+"jiraGetComments" "jiraGetComponent" "jiraGetComponentIssueCount"
+"jiraGetFields" "jiraGetIssue" "jiraGetIssueLink"
+"jiraGetIssueLinkTypes" "jiraGetIssueRemoteLink"
+"jiraGetIssueRemoteLinks" "jiraGetIssueTransitions"
+"jiraGetIssueWatches" "jiraGetProject" "jiraGetProjectComponents"
+"jiraGetProjectStatuses" "jiraGetProjectVersions" "jiraGetProjects"
+"jiraGetVersion" "jiraIssueSelector" "jiraJqlSearch" "jiraLinkIssues"
+"jiraNewComponent" "jiraNewIssue" "jiraNewIssueRemoteLink"
+"jiraNewIssues" "jiraNewVersion" "jiraNotifyIssue" "jiraSearch"
+"jiraTransitionIssue" "jiraUploadAttachment" "jiraUserSearch"
+"jmhReport" "jobDsl" "junit" "klocworkBuildSpecGeneration"
+"klocworkIncremental" "klocworkIntegrationStep1"
+"klocworkIntegrationStep2" "klocworkIssueSync"
+"klocworkQualityGateway" "klocworkWrapper" "kubernetesApply"
+"kubernetesDeploy" "lastChanges" "library" "libraryResource"
+"liquibaseDbDoc" "liquibaseRollback" "liquibaseUpdate"
+"listAWSAccounts" "livingDocs" "loadRunnerTest" "lock" "logstashSend"
+"mail" "marathon" "mattermostSend" "memoryMap" "milestone" "mockLoad"
+"newArtifactoryServer" "newBuildInfo" "newGradleBuild" "newMavenBuild"
+"nexusArtifactUploader" "nexusPolicyEvaluation" "nexusPublisher"
+"node" "nodejs" "nodesByLabel" "notifyBitbucket" "notifyDeploymon"
+"notifyOTC" "nunit" "nvm" "octoPerfTest" "office365ConnectorSend"
+"openTasks" "openshiftBuild" "openshiftCreateResource"
+"openshiftDeleteResourceByJsonYaml" "openshiftDeleteResourceByKey"
+"openshiftDeleteResourceByLabels" "openshiftDeploy" "openshiftExec"
+"openshiftImageStream" "openshiftScale" "openshiftTag"
+"openshiftVerifyBuild" "openshiftVerifyDeployment"
+"openshiftVerifyService" "openstackMachine"
+"osfBuilderSuiteForSFCCDeploy" "p4" "p4approve" "p4publish" "p4sync"
+"p4tag" "p4unshelve" "pagerduty" "parasoftFindings" "pcBuild" "pdrone"
+"perfReport" "perfSigReports" "perfpublisher" "plot" "pmd"
+"podTemplate" "powershell" "pragprog" "pretestedIntegrationPublisher"
+"properties" "protecodesc" "publishATX" "publishBrakeman"
+"publishBuildInfo" "publishBuildRecord" "publishConfluence"
+"publishDeployRecord" "publishETLogs" "publishEventQ"
+"publishGenerators" "publishHTML" "publishLambda" "publishLastChanges"
+"publishSQResults" "publishStoplight" "publishTMS" "publishTRF"
+"publishTestResult" "publishTraceAnalysis" "publishUNIT"
+"publishValgrind" "pullPerfSigReports" "puppetCode" "puppetHiera"
+"puppetJob" "puppetQuery" "pushImage" "pushToCloudFoundry" "pwd"
+"pybat" "pysh" "qc" "queryModuleBuildRequest" "questavrm" "r"
+"radargunreporting" "rancher" "readFile" "readJSON" "readManifest"
+"readMavenPom" "readProperties" "readTrusted" "readXml" "readYaml"
+"realtimeJUnit" "registerWebhook" "release" "resolveScm" "retry"
+"rocketSend" "rtp" "runConanCommand" "runFromAlmBuilder"
+"runLoadRunnerScript" "runValgrind" "s3CopyArtifact" "s3Delete"
+"s3Download" "s3FindFiles" "s3Upload" "salt" "sauce" "saucePublisher"
+"sauceconnect" "script" "selectRun" "sendCIMessage"
+"sendDeployableMessage" "serviceNow_attachFile" "serviceNow_attachZip"
+"serviceNow_createChange" "serviceNow_getCTask"
+"serviceNow_getChangeState" "serviceNow_updateChangeItem"
+"setAccountAlias" "setGerritReview" "setGitHubPullRequestStatus" "sh"
+"sha1" "signAndroidApks" "silkcentral" "silkcentralCollectResults"
+"slackSend" "sleep" "sloccountPublish" "snsPublish" "snykSecurity"
+"sonarToGerrit" "sparkSend" "splitTests" "springBoot" "sscm"
+"sseBuild" "sseBuildAndPublish" "sshPublisher" "sshagent" "stage"
+"startET" "startSandbox" "startSession" "startTS" "stash" "step"
+"stepcounter" "stopET" "stopSandbox" "stopSession" "stopTS"
+"submitJUnitTestResultsToqTest" "submitModuleBuildRequest"
+"svChangeModeStep" "svDeployStep" "svExportStep" "svUndeployStep"
+"svn" "tagImage" "task" "teamconcert" "tee" "testFolder" "testPackage"
+"testProject" "testiniumExecution" "themisRefresh" "themisReport"
+"throttle" "time" "timeout" "timestamps" "tm" "tool" "touch"
+"triggerInputStep" "triggerJob" "typetalkSend" "uftScenarioLoad"
+"unarchive" "unstash" "unzip" "updateBotPush"
+"updateGitlabCommitStatus" "updateIdP" "updateTrustPolicy"
+"upload-pgyer" "uploadProgetPackage" "uploadToIncappticConnect"
+"vSphere" "validateDeclarativePipeline" "vmanagerLaunch"
+"waitForCIMessage" "waitForJob" "waitForQualityGate" "waitForWebhook"
+"waitUntil" "walk" "waptProReport" "warnings" "whitesource"
+"winRMClient" "withAWS" "withAnt" "withContext" "withCoverityEnv"
+"withCredentials" "withDockerContainer" "withDockerRegistry"
+"withDockerServer" "withEnv" "withKafkaLog" "withKubeConfig"
+"withMaven" "withNPM" "withPod" "withPythonEnv" "withSCM"
+"withSandbox" "withSonarQubeEnv" "withTypetalk" "wrap" "writeFile"
+"writeJSON" "writeMavenPom" "writeProperties" "writeXml" "writeYaml"
+"ws" "xUnitImporter" "xUnitUploader" "xunit" "xldCreatePackage"
+"xldDeploy" "xldPublishPackage" "xlrCreateRelease" "xrayScanBuild"
+"zip"))
+
+
+(defun jenkinsfile-mode--fetch-keywords-from-jenkinsfile-vim ()
+  "Fetch and extract keywords from `jenkinsfile-mode-vim-source-url'.
+Run this manually when editing this file to get an updated the list of keywords."
+  (let* (file-sections directives options core-steps pipeline-steps
+         (syn-keyword-p (lambda (name line) (string-prefix-p (concat "syn keyword " name " ") line)))
+         (split-keywords (lambda (line) (split-string (replace-regexp-in-string "syn keyword [^ .]* " "" line)))))
+    (with-current-buffer (url-retrieve-synchronously jenkinsfile-mode-vim-source-url t)
+      (goto-char (point-min))
+      (while (not (eobp))
+        (move-beginning-of-line 1)
+        (let ((line (buffer-substring (point) (line-end-position))))
+          (cond
+           ((funcall syn-keyword-p "jenkinsfileSection" line)      (setq file-sections (append file-sections (funcall split-keywords line))))
+           ((funcall syn-keyword-p "jenkinsfileDirective" line)    (setq directives (append directives (funcall split-keywords line))))
+           ((funcall syn-keyword-p "jenkinsfileOption" line)       (setq options (append options (funcall split-keywords line))))
+           ((funcall syn-keyword-p "jenkinsfileCoreStep" line)     (setq core-steps (append core-steps (funcall split-keywords line))))
+           ((funcall syn-keyword-p "jenkinsfilePipelineStep" line) (setq pipeline-steps (append pipeline-steps (funcall split-keywords line))))))
+        (forward-line 1)))
+    (let ((buf (get-buffer-create "*jenkinsfile-mode--fetch-keywords-from-jenkinsfile-vim*")))
+      (with-current-buffer buf
+        (erase-buffer)
+        (emacs-lisp-mode)
+        (insert ";; copy the contents of this buffer into jenkinsfile-mode.el\n\n")
+        (insert (format "(setq jenkinsfile-mode--file-section-keywords '%S)\n\n" file-sections))
+        (insert (format "(setq jenkinsfile-mode--directive-keywords '%S)\n\n" directives))
+        (insert (format "(setq jenkinsfile-mode--option-keywords '%S)\n\n" options))
+        (insert (format "(setq jenkinsfile-mode--core-step-keywords '%S)\n\n" core-steps))
+        (insert (format "(setq jenkinsfile-mode--pipeline-step-keywords '%S)\n\n" pipeline-steps))
+        (fill-region 0 (point)))
+      (switch-to-buffer buf))))
 
 (setq jenkinsfile-mode-font-lock-keywords
-      `(("pipeline" . font-lock-preprocessor-face)
-        ("agent\\|post\\|stages\\|steps" . font-lock-builtin-face)
-        (,(regexp-opt '("environment" "options" "parameters"
-                        "triggers" "stage" "tools" "input"
-                        "when" "parallel" "script") 'symbols)
-         . font-lock-constant-face)
-        (,(regexp-opt '("always" "changed" "fixed"
-                        "regression" "aborted" "failure" "success"
-                        "unstable" "unsuccessful" "cleanup") 'symbols)
-         . font-lock-keyword-face)
-        (,(regexp-opt '("buildDiscarder" "checkoutToSubdirectory"
-                        "disableConcurrentBuilds" "disableResume"
-                        "newContainerPerStage" "overrideIndexTriggers"
-                        "preserveStashes" "quietPeriod" "retry"
-                        "skipDefaultCheckout" "skipStagesAfterUnstable"
-                        "timeout" "timestamps" "parallelsAlwaysFailFast") 'symbols)
-         . font-lock-keyword-face)
-        (,(regexp-opt '("string" "text" "booleanParam" "choice" "file"
-                        "password") 'symbols)
-         . font-lock-keyword-face)
-        (,(regexp-opt '("cron" "pollSCM" "upstream") 'symbols)
-         . font-lock-keyword-face)
-        (,(regexp-opt '("id" "ok" "subitter" "submitterParameter" "parameters") 'symbols)
-         . font-lock-keyword-face)
-        (,(regexp-opt '("branch" "buildingTag" "changelog" "changeset" "changeRequest"
-                        "environment" "equals" "expression" "tag" "not" "allOf"
-                        "anyOf" "triggeredBy") 'symbols)
-         . font-lock-keyword-face)
-        ))
+      `((,(regexp-opt jenkinsfile-mode--file-section-keywords 'symbols)  . font-lock-constant-face)
+        (,(regexp-opt jenkinsfile-mode--directive-keywords 'symbols)     . font-lock-constant-face)
+        (,(regexp-opt jenkinsfile-mode--option-keywords 'symbols)        . font-lock-function-name-face)
+        (,(regexp-opt jenkinsfile-mode--core-step-keywords 'symbols)     . font-lock-function-name-face)
+        (,(regexp-opt jenkinsfile-mode--pipeline-step-keywords 'symbols) . font-lock-keyword-face)))
 
 (setq jenkinsfile-mode-font-lock-defaults
       (append groovy-font-lock-keywords jenkinsfile-mode-font-lock-keywords))
