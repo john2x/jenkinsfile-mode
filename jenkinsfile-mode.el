@@ -235,5 +235,8 @@ Run this manually when editing this file to get an updated the list of keywords.
   "Major mode for editing Jenkins declarative pipeline files."
   (setq font-lock-defaults '(jenkinsfile-mode-font-lock-defaults)))
 
+;;;###autoload
+(add-to-list 'auto-mode-alist '("Jenkinsfile\\'" . jenkinsfile-mode))
+
 (provide 'jenkinsfile-mode)
 ;;; jenkinsfile-mode.el ends here
