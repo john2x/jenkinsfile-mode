@@ -2,6 +2,7 @@
 
 ;; Copyright (c) 2019 John Louis Del Rosario
 ;; Package-Requires: ((emacs "24") (groovy-mode "2.0"))
+;; Package-Version: 0.0.1
 ;; Homepage: https://github.com/john2x/jenkinsfile-mode
 ;;
 ;; This program is free software: you can redistribute it and/or modify
