@@ -236,7 +236,7 @@ Run this manually when editing this file to get an updated the list of keywords.
 (defvar jenkinsfile-mode-font-lock-defaults
   (append groovy-font-lock-keywords jenkinsfile-mode-font-lock-keywords))
 
-(defun jenkinsfile-mode-pipeline-step-compeletion-at-point ()
+(defun jenkinsfile-mode--pipeline-step-compeletion-at-point ()
   "completion for pipeline step"
   (interactive)
   (let* (
@@ -246,7 +246,7 @@ Run this manually when editing this file to get an updated the list of keywords.
     (list start end jenkinsfile-mode--pipeline-step-keywords . nil ))
   )
 
-(defun jenkinsfile-mode-core-step-compeletion-at-point ()
+(defun jenkinsfile-mode--core-step-compeletion-at-point ()
   "completion for core step"
   (interactive)
   (let* (
@@ -256,7 +256,7 @@ Run this manually when editing this file to get an updated the list of keywords.
     (list start end jenkinsfile-mode--core-step-keywords . nil ))
   )
 
-(defun jenkinsfile-mode-option-compeletion-at-point ()
+(defun jenkinsfile-mode--option-compeletion-at-point ()
   "completion for option step"
   (interactive)
   (let* (
@@ -266,7 +266,7 @@ Run this manually when editing this file to get an updated the list of keywords.
     (list start end jenkinsfile-mode--option-keywords . nil ))
   )
 
-(defun jenkinsfile-mode-directive-compeletion-at-point ()
+(defun jenkinsfile-mode--directive-compeletion-at-point ()
   "completion for directive step"
   (interactive)
   (let* (
@@ -276,7 +276,7 @@ Run this manually when editing this file to get an updated the list of keywords.
     (list start end jenkinsfile-mode--directive-keywords . nil ))
   )
 
-(defun jenkinsfile-mode-file-compeletion-at-point ()
+(defun jenkinsfile-mode--file-compeletion-at-point ()
   "completion for file step"
   (interactive)
   (let* (
@@ -290,11 +290,11 @@ Run this manually when editing this file to get an updated the list of keywords.
 (define-derived-mode jenkinsfile-mode groovy-mode "Jenkinsfile"
   "Major mode for editing Jenkins declarative pipeline files."
   (setq font-lock-defaults '(jenkinsfile-mode-font-lock-defaults))
-  (add-hook 'completion-at-point-functions 'jenkinsfile-mode-file-compeletion-at-point nil 'local)
-  (add-hook 'completion-at-point-functions 'jenkinsfile-mode-directive-compeletion-at-point nil 'local)
-  (add-hook 'completion-at-point-functions 'jenkinsfile-mode-option-compeletion-at-point nil 'local)
-  (add-hook 'completion-at-point-functions 'jenkinsfile-mode-pipeline-step-compeletion-at-point nil 'local)
-  (add-hook 'completion-at-point-functions 'jenkinsfile-mode-core-step-compeletion-at-point nil 'local)
+  (add-hook 'completion-at-point-functions 'jenkinsfile-mode--file-compeletion-at-point nil 'local)
+  (add-hook 'completion-at-point-functions 'jenkinsfile-mode--directive-compeletion-at-point nil 'local)
+  (add-hook 'completion-at-point-functions 'jenkinsfile-mode--option-compeletion-at-point nil 'local)
+  (add-hook 'completion-at-point-functions 'jenkinsfile-mode--pipeline-step-compeletion-at-point nil 'local)
+  (add-hook 'completion-at-point-functions 'jenkinsfile-mode--core-step-compeletion-at-point nil 'local)
   )
 
 ;;;###autoload
