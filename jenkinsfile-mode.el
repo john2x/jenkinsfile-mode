@@ -33,27 +33,27 @@
   :group 'jenkinsfile-mode
   :type 'string)
 
-(defvar jenkinsfile-mode--file-section-keywords
+(defconst jenkinsfile-mode--file-section-keywords
   '("pipeline" "agent" "stages" "steps" "post"))
 
-(defvar jenkinsfile-mode--directive-keywords
+(defconst jenkinsfile-mode--directive-keywords
   '("environment" "options" "parameters" "triggers" "stage" "tools" "input" "when" "libraries"))
 
-(defvar jenkinsfile-mode--option-keywords
+(defconst jenkinsfile-mode--option-keywords
   '("contained" "buildDiscarder"
     "disableConcurrentBuilds" "overrideIndexTriggers"
     "skipDefaultCheckout" "nextgroup=jenkinsfileOptionParams" "contained"
     "skipStagesAfterUnstable" "checkoutToSubdirectory" "timeout" "retry"
     "timestamps" "nextgroup=jenkinsfileOptionParams"))
 
-(defvar jenkinsfile-mode--core-step-keywords
+(defconst jenkinsfile-mode--core-step-keywords
   '("checkout" "docker"
     "dockerfile" "skipwhite" "nextgroup=jenkinsFileDockerConfigBlock"
     "node" "scm" "sh" "stage" "parallel" "steps" "step" "tool" "always"
     "changed" "failure" "success" "unstable" "aborted" "unsuccessful"
     "regression" "fixed" "cleanup"))
 
-(defvar jenkinsfile-mode--pipeline-step-keywords
+(defconst jenkinsfile-mode--pipeline-step-keywords
   '("Applitools"
     "ArtifactoryGradleBuild" "Consul" "MavenDescriptorStep" "OneSky"
     "VersionNumber" "ViolationsToBitbucketServer" "ViolationsToGitHub"
@@ -295,6 +295,14 @@ Run this manually when editing this file to get an updated the list of keywords.
   (add-hook 'completion-at-point-functions 'jenkinsfile-mode--option-compeletion-at-point nil 'local)
   (add-hook 'completion-at-point-functions 'jenkinsfile-mode--pipeline-step-compeletion-at-point nil 'local)
   (add-hook 'completion-at-point-functions 'jenkinsfile-mode--core-step-compeletion-at-point nil 'local)
+  (when (boundp 'company-mode)
+    (add-to-list 'company-keywords-alist
+                 `(jenkinsfile-mode . ,(append jenkinsfile-mode--file-section-keywords
+                                               jenkinsfile-mode--directive-keywords
+                                               jenkinsfile-mode--option-keywords
+                                               jenkinsfile-mode--pipeline-step-keywords
+                                               jenkinsfile-mode--core-step-keywords
+                                               ))))
   )
 
 ;;;###autoload
