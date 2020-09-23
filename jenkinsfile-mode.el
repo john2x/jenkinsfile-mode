@@ -33,27 +33,27 @@
   :group 'jenkinsfile-mode
   :type 'string)
 
-(defconst jenkinsfile-mode--file-section-keywords
+(defvar jenkinsfile-mode--file-section-keywords
   '("pipeline" "agent" "stages" "steps" "post"))
 
-(defconst jenkinsfile-mode--directive-keywords
+(defvar jenkinsfile-mode--directive-keywords
   '("environment" "options" "parameters" "triggers" "stage" "tools" "input" "when" "libraries"))
 
-(defconst jenkinsfile-mode--option-keywords
+(defvar jenkinsfile-mode--option-keywords
   '("contained" "buildDiscarder"
     "disableConcurrentBuilds" "overrideIndexTriggers"
     "skipDefaultCheckout" "nextgroup=jenkinsfileOptionParams" "contained"
     "skipStagesAfterUnstable" "checkoutToSubdirectory" "timeout" "retry"
     "timestamps" "nextgroup=jenkinsfileOptionParams"))
 
-(defconst jenkinsfile-mode--core-step-keywords
+(defvar jenkinsfile-mode--core-step-keywords
   '("checkout" "docker"
     "dockerfile" "skipwhite" "nextgroup=jenkinsFileDockerConfigBlock"
     "node" "scm" "sh" "stage" "parallel" "steps" "step" "tool" "always"
     "changed" "failure" "success" "unstable" "aborted" "unsuccessful"
     "regression" "fixed" "cleanup"))
 
-(defconst jenkinsfile-mode--pipeline-step-keywords
+(defvar jenkinsfile-mode--pipeline-step-keywords
   '("Applitools"
     "ArtifactoryGradleBuild" "Consul" "MavenDescriptorStep" "OneSky"
     "VersionNumber" "ViolationsToBitbucketServer" "ViolationsToGitHub"
