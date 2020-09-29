@@ -295,6 +295,14 @@ Run this manually when editing this file to get an updated the list of keywords.
   (add-hook 'completion-at-point-functions 'jenkinsfile-mode--option-compeletion-at-point nil 'local)
   (add-hook 'completion-at-point-functions 'jenkinsfile-mode--pipeline-step-compeletion-at-point nil 'local)
   (add-hook 'completion-at-point-functions 'jenkinsfile-mode--core-step-compeletion-at-point nil 'local)
+  (when (boundp 'company-mode)
+    (add-to-list 'company-keywords-alist
+                 `(jenkinsfile-mode . ,(append jenkinsfile-mode--file-section-keywords
+                                               jenkinsfile-mode--directive-keywords
+                                               jenkinsfile-mode--option-keywords
+                                               jenkinsfile-mode--pipeline-step-keywords
+                                               jenkinsfile-mode--core-step-keywords
+                                               ))))
   )
 
 ;;;###autoload
