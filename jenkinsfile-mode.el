@@ -239,52 +239,42 @@ Run this manually when editing this file to get an updated the list of keywords.
 (defun jenkinsfile-mode--pipeline-step-compeletion-at-point ()
   "completion for pipeline step"
   (interactive)
-  (let* (
-         (bds (bounds-of-thing-at-point 'symbol))
+  (let* ((bds (bounds-of-thing-at-point 'symbol))
          (start (car bds))
          (end (cdr bds)))
-    (list start end jenkinsfile-mode--pipeline-step-keywords . nil ))
-  )
+    (list start end jenkinsfile-mode--pipeline-step-keywords . nil)))
 
 (defun jenkinsfile-mode--core-step-compeletion-at-point ()
   "completion for core step"
   (interactive)
-  (let* (
-         (bds (bounds-of-thing-at-point 'symbol))
+  (let* ((bds (bounds-of-thing-at-point 'symbol))
          (start (car bds))
          (end (cdr bds)))
-    (list start end jenkinsfile-mode--core-step-keywords . nil ))
-  )
+    (list start end jenkinsfile-mode--core-step-keywords . nil)))
 
 (defun jenkinsfile-mode--option-compeletion-at-point ()
   "completion for option step"
   (interactive)
-  (let* (
-         (bds (bounds-of-thing-at-point 'symbol))
+  (let* ((bds (bounds-of-thing-at-point 'symbol))
          (start (car bds))
          (end (cdr bds)))
-    (list start end jenkinsfile-mode--option-keywords . nil ))
-  )
+    (list start end jenkinsfile-mode--option-keywords . nil)))
 
 (defun jenkinsfile-mode--directive-compeletion-at-point ()
   "completion for directive step"
   (interactive)
-  (let* (
-         (bds (bounds-of-thing-at-point 'symbol))
+  (let* ((bds (bounds-of-thing-at-point 'symbol))
          (start (car bds))
          (end (cdr bds)))
-    (list start end jenkinsfile-mode--directive-keywords . nil ))
-  )
+    (list start end jenkinsfile-mode--directive-keywords . nil)))
 
 (defun jenkinsfile-mode--file-compeletion-at-point ()
   "completion for file step"
   (interactive)
-  (let* (
-         (bds (bounds-of-thing-at-point 'symbol))
+  (let* ((bds (bounds-of-thing-at-point 'symbol))
          (start (car bds))
          (end (cdr bds)))
-    (list start end jenkinsfile-mode--file-section-keywords . nil ))
-  )
+    (list start end jenkinsfile-mode--file-section-keywords . nil)))
 
 ;;;###autoload
 (define-derived-mode jenkinsfile-mode groovy-mode "Jenkinsfile"
@@ -301,9 +291,7 @@ Run this manually when editing this file to get an updated the list of keywords.
                                                jenkinsfile-mode--directive-keywords
                                                jenkinsfile-mode--option-keywords
                                                jenkinsfile-mode--pipeline-step-keywords
-                                               jenkinsfile-mode--core-step-keywords
-                                               ))))
-  )
+                                               jenkinsfile-mode--core-step-keywords)))))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("Jenkinsfile\\'" . jenkinsfile-mode))
