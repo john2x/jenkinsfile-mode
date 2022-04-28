@@ -302,7 +302,7 @@ Run this manually when editing this file to get an updated the list of keywords.
                                                jenkinsfile-mode--option-keywords
                                                jenkinsfile-mode--pipeline-step-keywords
                                                jenkinsfile-mode--core-step-keywords
-                                               )))
+                                               ))))
   )
 
 ;;;###autoload
