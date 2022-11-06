@@ -27,6 +27,8 @@
 
 (require 'groovy-mode)
 
+(defvar company-keywords-alist) ; defined in company-keywords.el
+
 (defcustom jenkinsfile-mode-vim-source-url
   "https://raw.githubusercontent.com/martinda/Jenkinsfile-vim-syntax/master/syntax/Jenkinsfile.vim"
   "URL to Jenkinsfile.vim source file."
