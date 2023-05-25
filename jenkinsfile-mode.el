@@ -199,7 +199,7 @@
     "writeJSON" "writeMavenPom" "writeProperties" "writeXml" "writeYaml"
     "ws" "xUnitImporter" "xUnitUploader" "xunit" "xldCreatePackage"
     "xldDeploy" "xldPublishPackage" "xlrCreateRelease" "xrayScanBuild"
-    "zip", "matrix", "axes", "axis"))
+    "zip" "matrix" "axes" "axis"))
 
 
 (defun jenkinsfile-mode--fetch-keywords-from-jenkinsfile-vim ()
