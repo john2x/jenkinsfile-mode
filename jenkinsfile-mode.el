@@ -302,7 +302,7 @@ Run this manually when editing this file to get an updated the list of keywords.
   (add-hook 'completion-at-point-functions 'jenkinsfile-mode--option-compeletion-at-point nil 'local)
   (add-hook 'completion-at-point-functions 'jenkinsfile-mode--pipeline-step-compeletion-at-point nil 'local)
   (add-hook 'completion-at-point-functions 'jenkinsfile-mode--core-step-compeletion-at-point nil 'local)
-  (setq-local groovy-indent-offset jenkinsfile-mode-indent-offset)
+  (setq groovy-indent-offset jenkinsfile-mode-indent-offset)
   (with-eval-after-load 'company-keywords
     (add-to-list 'company-keywords-alist
                  `(jenkinsfile-mode . ,(append jenkinsfile-mode--file-section-keywords
