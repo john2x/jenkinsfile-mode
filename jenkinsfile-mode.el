@@ -49,7 +49,9 @@
     "disableConcurrentBuilds" "overrideIndexTriggers"
     "skipDefaultCheckout" "nextgroup=jenkinsfileOptionParams" "contained"
     "skipStagesAfterUnstable" "checkoutToSubdirectory" "timeout" "retry"
-    "timestamps" "nextgroup=jenkinsfileOptionParams"))
+    "timestamps" "nextgroup=jenkinsfileOptionParams" "contained"
+    "disableResume" "newContainerPerStage" "preserveStashes" "quietPeriod"
+    "parallelsAlwaysFailFast" "nextgroup=jenkinsfileOptionParams"))
 
 (defvar jenkinsfile-mode--core-step-keywords
   '("checkout" "docker"
